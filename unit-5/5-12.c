@@ -1,55 +1,73 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void entab(int argc, char **);
-void detab(int, char **);
+#define TAB 8
+
+void entab(int , int);
+void detab(int, int);
 
 int main(int argc, char *argv[]){
-	entab(argc, argv);
-	detab(argc, argv);
+	int pos, tabinc;
+
+	if(argc > 3){
+		printf("too many arguments\n");
+		return 0;
+	}
+	if(argc <= 1){
+		detab(0, TAB);
+	}
+	else if(argc == 3 && argv[1] == '-' && argv[2] == '+'){
+		pos = atoi(argv[1]);
+		tabinc = atoi(argv[2]);
+		detab(pos, tabinc);
+		entab(pos, tabinc);
+	}
+	else{
+		pos = atoi(argv[1]);
+		detab(pos, TAB);
+		entab(pos, TAB);
+	}
+
 	return 0;
 }
 
-void detab(int argc, char *argv[]){
-	if(argc != 2 || atoi(argv[1]) <= 0){
-		printf("not sufficient parameters\n");
-		return;
-	}
-
-	int c, i;
-	int ntab = 0,  pos = 1;
+void detab(int m, int n){
+	int c, i, ntab = 0,  pos = 1;
+	m = -m;
 
 	while((c = getchar()) != EOF && c != '\n'){
+		if(m-- > 0){
+			putchar(c);
+		}
+		else
 		if(c == '\t'){
-			ntab = atoi(argv[1]) - (pos - 1);
+			ntab = n - (pos - 1);
 			for(i = 0; i < ntab; i++){
 				putchar(' ');
 			}
-			pos = 0;
 		}
 		else{
 			putchar(c);
 			pos++;
-			if(pos == atoi(argv[1]))
+			if(pos == n)
 				pos = 0;	
 		}
 	}
 }
 
-void entab(int argc, char *argv[]){
-	if(argc != 2){
-		printf("not sufficient parameters\n");
-		return;
-	}
-
+void entab(int m, int n){
 	int c;	
 	int ntab = 0, nspace = 0, pos = 1;
+	m = -m;
 
 	while((c = getchar()) != EOF && c != '\n'){
+		if(m-- > 0){
+			putchar(c);
+			continue;
+		}
 		pos++;
-
 		if(c == ' '){
-			if(pos % atoi(*(argv + 1)) == 0){
+			if(pos % n == 0){
 				ntab++;
 				nspace = 0;
 			}
@@ -65,7 +83,7 @@ void entab(int argc, char *argv[]){
 			if(c == '\t'){
 				nspace = 0;
 				putchar('\t');
-				pos += atoi(*(argv + 1)) - (pos % atoi(*(argv + 1)));
+				pos += n - (pos % n);
 			}
 			else{
 				while(nspace > 0){

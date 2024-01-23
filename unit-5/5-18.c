@@ -99,7 +99,7 @@ int gettoken(void){
 			return tokentype = '(';
 		}
 	} else if (c == '['){
-		for(*p++ = c; (*p = getch()) != ']';);
+		for(*p++ = c; (c = getch()) != ']';);
 		*p++ = ']';
 		*p = '\0';
 		return tokentype = BRACKETS;

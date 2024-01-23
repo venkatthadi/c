@@ -44,6 +44,4 @@ void reverse(char s[]){
 		left++;
 		reverse(s);
 	}
-	else
-		left = 0;
 }

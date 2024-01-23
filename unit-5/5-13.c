@@ -34,7 +34,7 @@ int main(int argc, char **argv){
 	if((p = buf = malloc(MAXLINES * MAXLEN)) == NULL){
 		printf("memory not allocated\n");
 	}
-	bufmax = buf + MAXLINES + MAXLEN;
+	bufmax = buf + MAXLEN + MAXLINES;
 
 	last = 0;
 	nlines = 0;

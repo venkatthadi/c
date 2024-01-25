@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#define disupper(c) ((c) >='A' && (c) <= 'Z') ? 1 : 0
+
 int _isupper (int);
 
 int main() {
@@ -9,7 +11,12 @@ int main() {
 	while ((c = getchar()) != EOF) {
 		if (c == '\n')
 			continue;
-
+			
+		if (disupper(c))
+			printf("true\n");
+		else
+			printf("false\n");
+			
 		if (_isupper(c))
 			printf("true\n");
 		else
